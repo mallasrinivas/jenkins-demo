@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     // Pull the latest changes from GitHub
-                    sh 'git pull'
+                    sh 'git pull origin main'
                 }
             }
         }
