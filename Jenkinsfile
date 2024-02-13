@@ -8,8 +8,8 @@ pipeline {
         }
         stage('Pull to Folder') {
             steps {
-                sh 'sudo mkdir -p /var/www/html'
-                sh 'cp -r . /var/www/html'
+                sh 'mkdir -p $WORKSPACE/html'
+                sh 'cp -r * $WORKSPACE/html'
             }
         }
     }
