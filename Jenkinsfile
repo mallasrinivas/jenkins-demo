@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Pull to Folder') {
             steps {
-                sh 'mkdir -p /var/www/html'
+                sh 'sudo mkdir -p /var/www/html'
                 sh 'cp -r . /var/www/html'
             }
         }
