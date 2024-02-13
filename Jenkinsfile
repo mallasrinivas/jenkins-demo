@@ -20,11 +20,6 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
-            steps {
-                sh 'sudo service httpd restart'
-            }
-        }
     }
     post {
         always {
