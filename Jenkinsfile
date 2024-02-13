@@ -8,8 +8,8 @@ pipeline {
         }
         stage('Pull to Folder') {
             steps {
-                sh 'mkdir -p $WORKSPACE/html'
-                sh 'sudo rsync -avz --progress * $WORKSPACE/html'
+                sh 'mkdir -p /var/www/html'
+                sh 'cp -r * /var/www/html'
             }
         }
     }
