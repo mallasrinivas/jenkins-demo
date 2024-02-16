@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Test') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                // Copy Git files to test node
+                script {
+                    node('test') {
+                        git branch: 'develop', url: 'https://github.com/demo'
+                        sh 'mkdir -p /var/www/html/test' // Create directory if not exists
+                        sh 'cp -r * /var/www/html/test' // Copy files to test node
+                    }
+                }
+            }
+            post {
+                 success {
+                    build job: 'Prod'
+                }
+            }
+        }
+
+        stage('Prod') {
+            when {
+                branch 'develop'
+                expression { currentBuild.result == 'SUCCESS' }
+            }
+            steps {
+                // Copy files to prod node
+                script {
+                    node('prod') {
+                        git branch: 'develop', url: 'https://github.com/demo'
+                        sh 'mkdir -p /var/www/html/prod' // Create directory if not exists
+                        sh 'cp -r * /var/www/html/prod' // Copy files to prod node
+                    }
+                }
+            }
+        }
+    }
+}
